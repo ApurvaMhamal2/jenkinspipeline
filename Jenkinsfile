@@ -28,6 +28,8 @@ pipeline {
             steps {
                 sh 'echo hello from stage 2!'
                 sh 'oc create deployment  apurva   --image quay.io/mayank123modi/mayanknginximage'
+                sh 'oc expose deployment apurva  --port 80'
+                sh 'oc expose service  apurva'
                
             }
         }
@@ -43,8 +45,7 @@ pipeline {
         stage('stage 3') {
             steps {
                 sh 'echo hello from stage 3!. This is the last stage...'
-                sh 'oc expose deployment apurva  --port 80'
-                sh 'oc expose service  apurva'
+                
                 
             }
         }
