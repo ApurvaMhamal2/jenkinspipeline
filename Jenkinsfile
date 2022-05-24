@@ -17,6 +17,7 @@ pipeline {
                     openshift.withCluster() {
                         openshift.withProject() {
                                 echo "stage 1: using project: ${openshift.project()} in cluster ${openshift.cluster()}"
+                                
                         }
                     }
                 }
@@ -26,6 +27,8 @@ pipeline {
         stage('stage 2') {
             steps {
                 sh 'echo hello from stage 2!'
+                sh 'oc create deployment  apurva   --image quay.io/mayank123modi/mayanknginximage'
+               
             }
         }
 
@@ -40,6 +43,9 @@ pipeline {
         stage('stage 3') {
             steps {
                 sh 'echo hello from stage 3!. This is the last stage...'
+                sh 'oc expose deployment apurva  --port 80'
+                sh 'oc expose service  apurva'
+                
             }
         }
 
